@@ -4,11 +4,11 @@
 import socket
 import sys
 
-HOST, PORT = "::1", 44556
-data = " ".join(sys.argv[1:])
+HOST, PORT = input("Enter ip: "), 44556
+data = "hi from old send"
 
 # Create a socket (SOCK_STREAM means a TCP socket)
-with socket.socket(socket.AF_INET6, socket.SOCK_STREAM,0,0) as sock:
+with socket.socket(socket.AF_INET6, socket.SOCK_STREAM,6) as sock:
     # Connect to server and send data
     sock.connect((HOST, PORT,0,0))
     sock.sendall(bytes(data + "\n", "utf-8"))
