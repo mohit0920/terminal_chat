@@ -19,8 +19,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         # self.request is the TCP socket connected to the client
         self.data = self.request.recv(1024).strip()
-        print("{} wrote:".format(self.client_address[0]))
-        print(self.data)
+        #print("{} wrote:".format(self.client_address[0]))
+        print(">>>>"+self.data.decode())
         # just send back the same data, but upper-cased
        
         #send_back=input("Enter  Your reponse: ").encode()
@@ -41,7 +41,7 @@ def sender_fxn():
     HOST, PORT = input("Enter ip to connect:"), 44556
     while(True):
         # Create a socket (SOCK_STREAM means a TCP socket)
-        data = input("Message here: ")
+        data = input("<<<< ")
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             # Connect to server and send data
             sock.connect((HOST, PORT))
@@ -50,34 +50,34 @@ def sender_fxn():
             # Receive data from the server and shut down
             received = str(sock.recv(1024), "utf-8")
 
-        print("Sent:     {}".format(data))
-        print("Received: {}".format(received))
+        print(">{}".format(received))
+        #print("Received: {}".format(received))
 
 
 def thread_function(name):
-    logging.info("Thread %s: starting", name)
-    time.sleep(2)
+    #logging.info("Thread %s: starting", name)
+    #time.sleep(2)
     rcvr_fxn()
-    logging.info("Thread %s: finishing", name)
+    #logging.info("Thread %s: finishing", name)
 
 def thread_function2(name):
-    logging.info("Thread %s: starting", name)
-    time.sleep(2)
+    #logging.info("Thread %s: starting", name)
+    #time.sleep(2)
     sender_fxn()
-    logging.info("Thread %s: finishing", name)
+    #logging.info("Thread %s: finishing", name)
 if __name__ == "__main__":
-    format = "%(asctime)s: %(message)s"
-    logging.basicConfig(format=format, level=logging.INFO,
-                        datefmt="%H:%M:%S")
+    #format = "%(asctime)s: %(message)s"
+    #logging.basicConfig(format=format, level=logging.INFO,
+     #                   datefmt="%H:%M:%S")
 
-    logging.info("Main    : before creating thread")
+    #logging.info("Main    : before creating thread")
     x = threading.Thread(target=thread_function, args=(1,))
     y = threading.Thread(target=thread_function2, args=(2,))
-    logging.info("Main    : before running thread")
+   # logging.info("Main    : before running thread")
     x.start()
     y.start()
 
-    logging.info("Main    : wait for the thread to finish")
+    #logging.info("Main    : wait for the thread to finish")
     # x.join()
-    logging.info("Main    : all done")
+    #logging.info("Main    : all done")
 
