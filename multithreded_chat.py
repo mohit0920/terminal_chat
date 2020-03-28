@@ -41,7 +41,7 @@ def sender_fxn():
     HOST, PORT = input("Enter ip to connect:"), 44556
     while(True):
         # Create a socket (SOCK_STREAM means a TCP socket)
-        data = input("<<<< ")
+        data = input()
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             # Connect to server and send data
             sock.connect((HOST, PORT))
